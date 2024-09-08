@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GooglePay Expense Sharing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>GooglePay Expense Sharing</h1>
+        <form action="{{ url_for('add_expense') }}" method="post">
+            <div class="form-group">
+                <label for="payer">Payer:</label>
+                <select name="payer" id="payer" required>
+                    {% for friend in friends %}
+                    <option value="{{ friend }}">{{ friend }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="amount">Amount:</label>
+                <input type="number" name="amount" id="amount" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label>Beneficiaries:</label>
+                {% for friend in friends %}
+                <div class="checkbox">
+                    <input type="checkbox" name="beneficiaries" id="{{ friend }}" value="{{ friend }}">
+                    <label for="{{ friend }}">{{ friend }}</label>
+                </div>
+                {% endfor %}
+            </div>
+            <button type="submit">Add Expense</button>
+        </form>
+        <div class="links">
+            <a href="{{ url_for('settlements') }}">View Settlements</a>
+            <a href="{{ url_for('suggested_payments') }}">Suggested Payments</a>
+        </div>
+    </div>
+</body>
+</html>

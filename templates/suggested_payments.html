@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suggested Payments - GooglePay Expense Sharing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Suggested Payments</h1>
+        {% if transactions %}
+        <ul class="transactions">
+            {% for debtor, creditor, amount in transactions %}
+            <li>{{ debtor }} should pay ₹{{ "%.2f"|format(amount) }} to {{ creditor }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No transactions needed. Everyone is settled.</p>
+        {% endif %}
+        <div class="links">
+            <a href="{{ url_for('index') }}">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

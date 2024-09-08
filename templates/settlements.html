@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settlements - GooglePay Expense Sharing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Settlements</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Friend</th>
+                    <th>Settlement</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for friend in friends %}
+                <tr>
+                    <td>{{ friend }}</td>
+                    <td>
+                        {% if settlements[loop.index0] > 0 %}
+                        Should Receive ₹{{ "%.2f"|format(settlements[loop.index0]) }}
+                        {% elif settlements[loop.index0] < 0 %}
+                        Owes ₹{{ "%.2f"|format(-settlements[loop.index0]) }}
+                        {% else %}
+                        Is Settled
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="links">
+            <a href="{{ url_for('index') }}">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>
